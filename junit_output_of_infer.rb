@@ -28,7 +28,8 @@ module InferParser
             next
           end
           if !issues.empty? && !issues.last.file.nil? && issues.last.details.nil?
-            issues.last.details = line.strip
+            issue = issues.last
+            issue.details = "#{issue.type}: #{line.strip}\n\n#{issue.file}:#{issue.line}"
           end
         end
         return issues
