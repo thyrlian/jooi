@@ -31,9 +31,10 @@ module InferParser
             issues.push(issue)
             next
           end
-          if !issues.empty? && !issues.last.file.nil? && issues.last.details.nil?
+          details = line.strip
+          if !issues.empty? && !issues.last.file.nil? && issues.last.details.nil? && !details.empty?
             issue = issues.last
-            issue.details = "#{issue.type}: #{line.strip}\n\n#{issue.file}:#{issue.line}"
+            issue.details = "#{issue.type}: #{details}\n\n#{issue.file}:#{issue.line}"
           end
         end
         return issues
@@ -48,9 +49,11 @@ module InferParser
           builder = Nokogiri::XML::Builder.new do |xml|
             xml.testsuite(:name => 'Infer', :tests => issues.size, :failures => issues.size) {
               issues.each do |issue|
-                xml.testcase(:name => "#{issue.filename}:#{issue.line}") {
-                  xml.failure(:type => issue.type, :message => issue.details)
-                }
+                if issue.is_complete?
+                  xml.testcase(:name => "#{issue.filename}:#{issue.line}") {
+                    xml.failure(:type => issue.type, :message => issue.details)
+                  }
+                end
               end
             }
           end
