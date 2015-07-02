@@ -5,6 +5,10 @@ require 'nokogiri'
 module InferParser
   class Issue
     attr_accessor :file, :filename, :line, :sort, :type, :details
+    
+    def is_complete?
+      !(@file && @filename && @line && @sort && @type && @details).nil?
+    end
   end
   
   class Parser
