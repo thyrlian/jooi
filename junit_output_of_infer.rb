@@ -75,3 +75,9 @@ module InferParser
     private_class_method :format
   end
 end
+
+include InferParser
+results_output = ARGV.shift
+if !results_output.nil?
+  Reporter.generate(Parser.parse, results_output)
+end
