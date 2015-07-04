@@ -12,13 +12,13 @@ Convert the results of [Infer](http://fbinfer.com/) (static analyzer by Facebook
 #
 # Supported build systems by Infer:
 #   http://fbinfer.com/docs/analyzing-apps-or-projects.html
-# Example build commands:
+# Example analyze commands for Infer:
 #   infer -- gradle <gradle_task>
 #   infer -- xcodebuild -target <target_name> -configuration <build_configuration> -sdk iphonesimulator
 #   infer -- xcodebuild -workspace <workspace_name> -scheme <scheme_name> -configuration <build_configuration> -sdk iphonesimulator
 #
 set -o pipefail
-<build_command> | ruby junit_output_of_infer.rb $PWD/infer_junit_results.xml
+<infer_analyze_command> | ruby junit_output_of_infer.rb $PWD/infer_junit_results.xml
 ```
 * **Post-build Actions** -> **Publish JUnit test result report** -> **Test report XMLs** -> infer_junit_results.xml
 
