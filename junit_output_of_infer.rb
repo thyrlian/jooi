@@ -26,8 +26,10 @@ module InferParser
             issue.line = $~[3]
             issue.filename = File.basename(issue.file)
             @@regex_cause.match(line)
-            issue.sort = $~[1]
-            issue.type = $~[2]
+            if !$~.nil?
+              issue.sort = $~[1]
+              issue.type = $~[2]
+            end
             issues.push(issue)
             next
           end
