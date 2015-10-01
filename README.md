@@ -7,7 +7,7 @@ Convert the results of [Infer](http://fbinfer.com/) (static analyzer by Facebook
 
 ## Jenkins Configure
 * **Build** -> **Execute shell** -> **Command**
-```
+``` bash
 #!/usr/bin/env bash
 #
 # Supported build systems by Infer:
